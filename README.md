@@ -1,3 +1,3 @@
-#Time Tracker 
+**Time Tracker App**
 
 Written in SvelteKit. 
