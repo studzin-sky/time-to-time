@@ -1,6 +1,6 @@
 # Timer App 🕒
 
-![Timer App Screenshot](./timer-app-screenshot.png)
+![Timer App Screenshot](https://user-images.githubusercontent.com/73829934/230607120-677bca87-6201-4b87-89e7-1ea6c5e3b2e3.png)
 
 A minimalistic, easy-to-use timer app built with Svelte and TypeScript. It provides a precise way to measure time intervals and has a chill user interface.
 
@@ -14,7 +14,7 @@ A minimalistic, easy-to-use timer app built with Svelte and TypeScript. It provi
 
 1. Clone this repository:
 
-```git clone https://github.com/studzin-sky/timer-app.git```
+```git clone https://github.com/studzin-sky/my-svelte-app.git```
 
 2. Navigate to the project directory:
 
