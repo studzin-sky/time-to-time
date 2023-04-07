@@ -7,6 +7,10 @@ body {
     height: 100vh;
     margin: 0;
   }
+
+  .content.waving {
+    animation: wave 1s ease-in-out infinite;
+  }
   
   div {
     font-family: 'Open Sans', sans-serif;
@@ -43,4 +47,17 @@ body {
   button:hover {
     opacity: 0.9;
   }
+
+  @keyframes wave {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
   

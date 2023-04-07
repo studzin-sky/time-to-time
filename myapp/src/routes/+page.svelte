@@ -18,29 +18,27 @@
 	}
   </script>
   
-  <div>
+  <header>
 	<h3>Top 5 Longest Time Records</h3>
 	<ul>
 	  {#each $topFiveRecords as record, i}
 		<li>
-		  {i + 1}. Start: {new Date(record.start).toLocaleString()} | Duration: {record.duration.toFixed(3)} seconds
+		  {i + 1}. Duration: {record.duration.toFixed(3)} seconds
 		</li>
 	  {/each}
 	</ul>
+  </header>
+  
+  <div class="content" class:waving={isTime}>
+	{#if !isTime}
+	  <div>
+		<h1>It's time to time</h1>
+		<button on:click={isTimeClick}>Time it</button>
+	  </div>
+	{:else}
+	  <div>
+		<Timer on:stop={e => isTimeUnclick(e.detail)} on:back={e => isTimeUnclick(e.detail)} />
+	  </div>
+	{/if}
   </div>
-  
-  {#if !isTime}
-	<div>
-	  <h1>It's time to time</h1>
-	  <button on:click={isTimeClick}>Time it</button>
-	</div>
-  {:else}
-	<div>
-	  <Timer on:stop={e => isTimeUnclick(e.detail)} />
-	  <button on:click={() => isTimeUnclick(0)}>back</button>
-	</div>
-  {/if}
-  
-  <style>
-  </style>
   

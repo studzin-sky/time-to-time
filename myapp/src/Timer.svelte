@@ -1,35 +1,31 @@
+<!-- src/Timer.svelte -->
 <script lang="ts">
-	import { onMount, onDestroy, createEventDispatcher } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
   
-	const dispatch = createEventDispatcher();
-  
-	let time: number = 0;
-	let startTime: number;
-	let interval: ReturnType<typeof setInterval>;
-  
-	const formatTime = (time: number): string => {
-	  const minutes: number = Math.floor(time / 60);
-	  const seconds: number = parseFloat((time % 60).toFixed(3));
-	  return `${minutes}:${seconds.toFixed(3)}`;
-	};
-  
-	const updateTimer = (): void => {
-	  const currentTime: number = performance.now();
-	  time = (currentTime - startTime) / 1000;
+	const dispatch = createEventDispatcher<{ stop: number; back: number }>();
+	let startTime: number = Date.now();
+	let elapsedTime: number = 0;
+	
+	const formatTimestamp = (timestamp: number): string => {
+	  const date = new Date(timestamp);
+	  return date.toLocaleString();
 	};
   
 	function stopTimer(): void {
-	  clearInterval(interval);
-	  dispatch("stop", time);
+	  elapsedTime = (Date.now() - startTime) / 1000;
+	  dispatch('stop', elapsedTime);
 	}
   
-	onMount(() => {
-	  startTime = performance.now();
-	  interval = setInterval(updateTimer, 50);
-	});
-  
-	onDestroy(stopTimer);
+	function backTimer(): void {
+	  elapsedTime = (Date.now() - startTime) / 1000;
+	  dispatch('back', elapsedTime);
+	}
   </script>
   
-  <h2>{formatTime(time)}</h2>
+  <div>
+	<h4>Start time: {formatTimestamp(startTime)}</h4>
+	<h2>{(Date.now() - startTime) / 1000}</h2>
+	<button on:click={stopTimer}>Stop</button>
+	<button on:click={backTimer}>back</button>
+  </div>
   
