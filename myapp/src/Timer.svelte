@@ -1,35 +1,37 @@
+<!-- src/Timer.svelte -->
 <script lang="ts">
-	import { onMount, onDestroy, createEventDispatcher } from 'svelte';
+	import { onDestroy } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
   
-	const dispatch = createEventDispatcher();
-  
+	const dispatch = createEventDispatcher<{ stop: number; back: number }>();
 	let time: number = 0;
-	let startTime: number;
-	let interval: ReturnType<typeof setInterval>;
+	let lastTimestamp: number = performance.now();
   
-	const formatTime = (time: number): string => {
-	  const minutes: number = Math.floor(time / 60);
-	  const seconds: number = parseFloat((time % 60).toFixed(3));
-	  return `${minutes}:${seconds.toFixed(3)}`;
-	};
-  
-	const updateTimer = (): void => {
-	  const currentTime: number = performance.now();
-	  time = (currentTime - startTime) / 1000;
-	};
-  
-	function stopTimer(): void {
-	  clearInterval(interval);
-	  dispatch("stop", time);
+	function step(timestamp: number): void {
+	  const deltaTime = timestamp - lastTimestamp;
+	  time += deltaTime / 1000;
+	  lastTimestamp = timestamp;
+	  requestAnimationFrame(step);
 	}
   
-	onMount(() => {
-	  startTime = performance.now();
-	  interval = setInterval(updateTimer, 50);
+	function stopTimer(): void {
+	  dispatch('stop', time);
+	}
+  
+	function backTimer(): void {
+	  dispatch('back', time);
+	}
+  
+	onDestroy(() => {
+	  requestAnimationFrame(step);
 	});
   
-	onDestroy(stopTimer);
+	requestAnimationFrame(step);
   </script>
   
-  <h2>{formatTime(time)}</h2>
+  <div>
+	<h2>{time.toFixed(3)}</h2>
+	<button on:click={stopTimer}>Stop</button>
+	<button on:click={backTimer}>back</button>
+  </div>
   
