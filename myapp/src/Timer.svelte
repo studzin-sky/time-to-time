@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount, onDestroy, createEventDispatcher } from 'svelte';
+  
+	const dispatch = createEventDispatcher();
   
 	let time: number = 0;
 	let startTime: number;
@@ -16,14 +18,17 @@
 	  time = (currentTime - startTime) / 1000;
 	};
   
+	function stopTimer(): void {
+	  clearInterval(interval);
+	  dispatch("stop", time);
+	}
+  
 	onMount(() => {
 	  startTime = performance.now();
 	  interval = setInterval(updateTimer, 50);
 	});
   
-	onDestroy(() => {
-	  clearInterval(interval);
-	});
+	onDestroy(stopTimer);
   </script>
   
   <h2>{formatTime(time)}</h2>
