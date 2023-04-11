@@ -24,9 +24,8 @@
   </script>
   
   <div>
-	<h4>Start time: {formatTimestamp(startTime)}</h4>
 	<input bind:value={title} placeholder="Enter title for timing" />
-	<h2>{(Date.now() - startTime) / 1000}</h2>
+	<p>Start time: {formatTimestamp(startTime)}</p>
 	<button on:click={stopTimer}>Stop</button>
 	<button on:click={backTimer}>back</button>
   </div>
