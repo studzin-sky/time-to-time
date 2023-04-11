@@ -8,11 +8,12 @@
 	  isTime = 1;
 	}
   
-	function isTimeUnclick(duration: number): void {
+	function isTimeUnclick(e: CustomEvent<{ duration: number;  title: string; }>): void {
 	  isTime = 0;
 	  const record = {
-		start: Date.now() - duration * 1000,
-		duration: duration,
+		start: Date.now() - e.detail.duration * 1000,
+		duration: e.detail.duration,
+		title: e.detail.title,
 	  };
 	  addTimeRecord(record);
 	}
@@ -23,7 +24,7 @@
 	<ul>
 	  {#each $topFiveRecords as record, i}
 		<li>
-		  {i + 1}. Duration: {record.duration.toFixed(3)} seconds
+		  {i + 1}. {record.title}: {record.duration.toFixed(3)} seconds
 		</li>
 	  {/each}
 	</ul>
@@ -37,7 +38,7 @@
 	  </div>
 	{:else}
 	  <div>
-		<Timer on:stop={e => isTimeUnclick(e.detail)} on:back={e => isTimeUnclick(e.detail)} />
+		<Timer on:stop={isTimeUnclick} on:back={isTimeUnclick} />
 	  </div>
 	{/if}
   </div>
