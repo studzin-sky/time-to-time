@@ -22,13 +22,9 @@
 
 <div class="content" class:waving={isTime}>
 	{#if !isTime}
-		<div>
-			<h1>It's time to time</h1>
-			<button on:click={isTimeClick}>Time it</button>
-		</div>
+		<h1>It's time to time</h1>
+		<button on:click={isTimeClick}>Time it</button>
 	{:else}
-		<div>
-			<Timer on:stop={isTimeUnclick} on:back={isTimeUnclick} />
-		</div>
+		<Timer on:stop={isTimeUnclick} on:back={isTimeUnclick} />
 	{/if}
 </div>
