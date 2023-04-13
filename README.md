@@ -1,6 +1,6 @@
 # Timer App 🕒
 
-![Timer App Screenshot](https://user-images.githubusercontent.com/73829934/230607120-677bca87-6201-4b87-89e7-1ea6c5e3b2e3.png)
+![Timer App Screenshot](https://user-images.githubusercontent.com/73829934/231885803-f828ea3f-f309-4d0c-914b-685348b92267.png)
 
 A minimalistic, easy-to-use timer app built with Svelte and TypeScript. It provides a precise way to measure time intervals and has a chill user interface.
 
