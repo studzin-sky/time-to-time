@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { createClient } from '@supabase/supabase-js';
 	import userStore from '../stores/userStore';
@@ -21,7 +20,9 @@
 	function toggleRegister() {
 		isRegistering = !isRegistering;
 	}
-	export let onSuccess: (email: string) => void = (email: string) => {};
+	export let onSuccess: (email: string) => void = (email: string) => {
+		userStore.set({ email });
+	};
 
 	async function handleSubmit() {
 		try {
@@ -32,7 +33,15 @@
 			if (response.error) {
 				alert(response.error.message);
 			} else {
-				onSuccess($userStore.email);
+				if (response.data && response.data.user) {
+					onSuccess(response.data.user.email || '');
+				} else {
+					supabase.auth.onAuthStateChange(async (event, session) => {
+						if (event === 'SIGNED_IN' && session && session.user) {
+							onSuccess(session.user.email || '');
+						}
+					});
+				}
 			}
 		} catch (error) {
 			alert((error as Error).message);

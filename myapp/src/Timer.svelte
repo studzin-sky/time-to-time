@@ -23,10 +23,10 @@
 	}
   </script>
   
-  <div>
+  
 	<input bind:value={title} placeholder="Enter title for timing" />
 	<p>Start time: {formatTimestamp(startTime)}</p>
 	<button on:click={stopTimer}>Stop</button>
 	<button on:click={backTimer}>back</button>
-  </div>
+  
   

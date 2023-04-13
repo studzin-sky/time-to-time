@@ -13,11 +13,13 @@
 </script>
 
 <header>
-	<TimerList />
+	{#if showLogin}
+		<LoginPage onSuccess={handleLoginSuccess} />
+	{:else}
+		<LoggedIn />
+	{/if}
 </header>
-<MainTimer />
-{#if showLogin}
-	<LoginPage onSuccess={handleLoginSuccess} />
-{:else}
-	<LoggedIn />
-{/if}
+<div class="container">
+	<TimerList />
+	<MainTimer />
+</div>
