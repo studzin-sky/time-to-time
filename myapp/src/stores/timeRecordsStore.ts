@@ -1,5 +1,12 @@
 import { writable, derived } from 'svelte/store';
 
+export type TimeRecord = {
+  start: number;
+  duration: number;
+  title: string;
+};
+
+
 const timeRecords = writable<{ start: number; duration: number; title: string }[]>([]);
 
 export function addTimeRecord(record: { start: number; duration: number; title: string }): void {
@@ -10,4 +17,4 @@ export function addTimeRecord(record: { start: number; duration: number; title: 
   });
 }
 
-export const topFiveRecords = derived(timeRecords, $timeRecords => $timeRecords.slice(0, 5));
+export const topFiveRecords = derived(timeRecords, $timeRecords => $timeRecords.slice(0, 6));

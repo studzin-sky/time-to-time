@@ -1,4 +1,4 @@
-<script lang='ts'>
+<!-- <script lang='ts'>
     import {topFiveRecords} from '../stores/timeRecordsStore'
 
 </script>
@@ -10,4 +10,4 @@
       {i + 1}. {record.title}: {record.duration.toFixed(3)} seconds
     </li>
   {/each}
-</ul>
+</ul> -->
