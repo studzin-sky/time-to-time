@@ -87,23 +87,3 @@
 		>
 	</div>
 {/if}
-
-<style>
-	.login-icon {
-		cursor: pointer;
-		font-size: 24px;
-	}
-
-	.login-form {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		width: 100%;
-	}
-
-	input {
-		padding: 8px;
-		border: 1px solid #ccc;
-		border-radius: 4px;
-	}
-</style>
