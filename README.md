@@ -1,6 +1,9 @@
 # Timer App 🕒
 
-![Timer App Screenshot](https://user-images.githubusercontent.com/73829934/231885803-f828ea3f-f309-4d0c-914b-685348b92267.png)
+![Main-Unlogged-Page](https://github.com/studzin-sky/time-to-time/assets/73829934/44fe801b-e54d-4e0b-8ee1-da2a80cb42ad)
+![Logged-In-Page-With-Some-Times](https://github.com/studzin-sky/time-to-time/assets/73829934/8f9ebd4e-e720-482d-8fda-4961f1721899)
+
+
 
 A minimalistic, easy-to-use timer app built with Svelte and TypeScript. It provides a precise way to measure time intervals and has a chill user interface.
 
