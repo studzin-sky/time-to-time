@@ -1,12 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { createClient } from '@supabase/supabase-js';
-	import userStore from '../stores/userStore';
-
-	const SUPABASE_URL = import.meta.env.VITE_PUBLIC_SUPABASE_URL;
-	const SUPABASE_ANON_KEY = import.meta.env.VITE_PUBLIC_SUPABASE_ANON_KEY;
-
-	const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+	import { supabase } from '../clients/supabaseClient';
+	import userStore, { type User } from '../stores/userStore';
 
 	let showLoginForm = false;
 	let isRegistering = false;
@@ -20,34 +15,32 @@
 	function toggleRegister() {
 		isRegistering = !isRegistering;
 	}
-	export let onSuccess: (email: string) => void = (email: string) => {
-		userStore.set({ email });
+	export let onSuccess: (user: User) => void = (user: User) => {
+		userStore.set(user);
 	};
 
 	async function handleSubmit() {
 		try {
-			const response = isRegistering
+			const { data, error } = isRegistering
 				? await supabase.auth.signUp({ email, password })
 				: await supabase.auth.signInWithPassword({ email, password });
 
-			if (response.error) {
-				alert(response.error.message);
-			} else {
-				if (response.data && response.data.user) {
-					onSuccess(response.data.user.email || '');
-				} else {
-					supabase.auth.onAuthStateChange(async (event, session) => {
-						if (event === 'SIGNED_IN' && session && session.user) {
-							onSuccess(session.user.email || '');
-						}
-					});
+			if (error) {
+				alert(error.message);
+			} else if (data?.user) {
+				const { user } = data;
+
+				if (user.email) {
+					const userId = user.id ?? null;
+					const newUser: User = { email: user.email, id: userId };
+					userStore.set(newUser);
+					onSuccess(newUser);
 				}
 			}
 		} catch (error) {
 			alert((error as Error).message);
 		}
 	}
-
 	function handleKeyDown(event: KeyboardEvent) {
 		if (event.key === 'Enter' || event.key === ' ') {
 			event.preventDefault();

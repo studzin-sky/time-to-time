@@ -3,20 +3,19 @@
 	import MainTimer from '../components/MainTimer.svelte';
 	import LoggedIn from '../components/LoggedIn.svelte';
 	import TimeRecordBoard from '../components/TimeRecordBoard.svelte';
-	import userStore from '../stores/userStore';
-	let showLogin = true;
+	import userStore, { type User } from '../stores/userStore';
 
-	function handleLoginSuccess(email: string) {
-		userStore.update((user) => ({ ...user, email }));
-		showLogin = false;
+	// This function is called when a user successfully logs in
+	function handleLoginSuccess(user: User) {
+		userStore.set(user);
 	}
 </script>
 
 <header>
-	{#if showLogin}
-		<LoginPage onSuccess={handleLoginSuccess} />
-	{:else}
+	{#if $userStore.id} 
 		<LoggedIn />
+	{:else}
+		<LoginPage onSuccess={handleLoginSuccess} />
 	{/if}
 </header>
 <TimeRecordBoard />
