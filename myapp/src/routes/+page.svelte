@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LoginPage from '../components/LoginPage.svelte';
+	import LoginPage from '../components/LoginPageTemp.svelte';
 	import MainTimer from '../components/MainTimer.svelte';
 	import LoggedIn from '../components/LoggedIn.svelte';
 	import TimeRecordBoard from '../components/TimeRecordBoard.svelte';
